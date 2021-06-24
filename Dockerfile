@@ -75,11 +75,20 @@ RUN ./configure --prefix=/usr/share/nginx \
     --with-stream_realip_module \
     --with-stream_ssl_module \
     --with-stream_ssl_preread_module \
-	--with-cc-opt="-Wl,--gc-sections -static -static-libgcc -O2 -ffunction-sections -fdata-sections -fPIC -fstack-protector-all -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security"
+	--with-cc-opt="-Wl,--gc-sections -O2 -ffunction-sections -fdata-sections -fPIC -fstack-protector-all -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security"
 
 ARG CORE_COUNT="1"
 RUN make -j"$CORE_COUNT"
 RUN make install
 
+FROM debian:buster AS deb
+ARG VERSION
+WORKDIR /root/
+COPY pkg-debian/ ./pkg-debian/
+COPY --from=builder /usr/sbin/nginx ./pkg-debian/usr/sbin/nginx
+RUN sed -i "s/[{][{] VERSION [}][}]/$VERSION/g" ./pkg-debian/DEBIAN/control
+RUN dpkg -b pkg-debian nginx_"$VERSION"_amd64.deb
+
 FROM scratch AS final
-COPY --from=builder /usr/sbin/nginx /usr/sbin/nginx
+ARG VERSION
+COPY --from=deb /root/nginx_"$VERSION"_amd64.deb .
