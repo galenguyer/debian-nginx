@@ -1,7 +1,8 @@
-Package: nginx
+Package: edgeinx
 Version: {{ VERSION }}
 Architecture: amd64
 Provides: nginx
+Conflicts: nginx
 Essential: no
 Section: web
 Priority: optional

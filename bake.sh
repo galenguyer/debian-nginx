@@ -23,6 +23,10 @@ echo "using nginx mainline version $nginx_mainline..."
 core_count="$(nproc)"
 echo "using $core_count cores..."
 
+pkgver="${VERSION:-0}"
+echo "using package version $pkgver..."
+
 export CORE_COUNT="$core_count"
 export NGINX_MAINLINE="$nginx_mainline"
+export PKGVER="$pkgver"
 docker buildx bake "$@"

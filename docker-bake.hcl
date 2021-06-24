@@ -1,5 +1,5 @@
-variable "VERSION" {
-    default = "0.1.0"
+variable "PKGVER" {
+    default = "1"
 }
 variable "NGINX_MAINLINE" {
     default = "UNSET"
@@ -19,6 +19,6 @@ target "deb" {
     args = {
         NGINX_VER="${NGINX_MAINLINE}"
         CORE_COUNT="${CORE_COUNT}"
-        VERSION="${VERSION}"
+        VERSION="${NGINX_MAINLINE}.${PKGVER}"
     }
 }

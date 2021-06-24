@@ -87,8 +87,8 @@ WORKDIR /root/
 COPY pkg-debian/ ./pkg-debian/
 COPY --from=builder /usr/sbin/nginx ./pkg-debian/usr/sbin/nginx
 RUN sed -i "s/[{][{] VERSION [}][}]/$VERSION/g" ./pkg-debian/DEBIAN/control
-RUN dpkg -b pkg-debian nginx_"$VERSION"_amd64.deb
+RUN dpkg -b pkg-debian edgeinx_"$VERSION"_amd64.deb
 
 FROM scratch AS final
 ARG VERSION
-COPY --from=deb /root/nginx_"$VERSION"_amd64.deb .
+COPY --from=deb /root/edgeinx_"$VERSION"_amd64.deb .
