@@ -39,8 +39,8 @@ RUN ./configure --prefix=/usr/share/nginx \
 	--http-log-path=/var/log/nginx/access.log \
 	--pid-path=/run/nginx.pid \
 	--lock-path=/run/lock/subsys/nginx \
-	--http-client-body-temp-path=/tmp/nginx/client \
-	--http-proxy-temp-path=/tmp/nginx/proxy \
+	--http-client-body-temp-path=/usr/share/nginx/client \
+	--http-proxy-temp-path=/usr/share/nginx/proxy \
 	--user=www-data \
 	--group=www-data \
 	--with-threads \

@@ -5,6 +5,7 @@ Provides: nginx
 Conflicts: nginx
 Essential: no
 Section: web
+Depends: libmaxminddb0, libssl-dev
 Priority: optional
 Maintainer: Galen Guyer <galen@galenguyer.com>
 Installed-Size: 96
